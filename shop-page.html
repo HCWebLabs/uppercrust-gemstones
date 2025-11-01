@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Aureline — Shop Collection</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Shop Aureline: fine, small-batch gemstone jewelry — sapphire, moonstone, labradorite, aquamarine, rose quartz, amethyst. Ethically sourced, handcrafted, understated elegance." />
+<meta name="color-scheme" content="light" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ==========================
+   AURELINE — COLLECTION (AMETHYST THEME)
+   ========================== */
+#shop, #shop * { box-sizing: border-box; }
+#shop{
+  --ivory:#FAF9F7; --marble:#F4F2EE; --linen:#EAE4DA;
+  --gem:#6F3BA2; --gem-ink:#5A2D85; --gem-soft:#BDA3D6; --gem-pale:#E9E0F3;
+  --slate:#4B4A47; --ink:#2f2e2b; --muted:#7e7b75; --rose:#E6D7EC;
+  --ring:0 0 0 2px rgba(111,59,162,.12); --shadow:0 6px 18px rgba(0,0,0,.06);
+  --radius:14px; --radius-sm:10px;
+  --gutter:clamp(16px,3vw,32px);
+  --container:min(1200px, 92vw);
+  --cols: 3; /* grid density default (Comfortable) */
+  --speed:250ms; --ease:cubic-bezier(.22,.61,.36,1);
+  background:var(--ivory); color:var(--ink);
+  font-family:"Work Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  line-height:1.6;
+}
+#shop .container{ width:var(--container); margin-inline:auto; }
+#shop a{ color:inherit; text-decoration:none; }
+#shop img{ max-width:100%; display:block; }
+#shop .h1,.h2,.h3{ font-family:"Fraunces",serif; line-height:1.2; letter-spacing:.02em; }
+#shop .h1{ font-size:clamp(28px,4.2vw,44px); font-weight:600; }
+#shop .h2{ font-size:clamp(22px,3.4vw,30px); font-weight:600; }
+#shop .h3{ font-size:clamp(18px,2.2vw,22px); font-weight:600; }
+#shop .muted{ color:var(--muted); }
+
+/* Header */
+#shop header{ position:sticky; top:0; z-index:40; background:linear-gradient(#fff,#fff0);
+  border-bottom:1px solid color-mix(in oklab,var(--gem) 16%, transparent);
+  backdrop-filter:saturate(1.1) blur(8px);
+}
+@supports not (backdrop-filter: blur(8px)){ #shop header{ background:#fff; } }
+#shop .topbar{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.9rem var(--gutter); }
+#shop .brand{ font-family:"Fraunces",serif; font-weight:600; letter-spacing:.06em; display:flex; align-items:center; gap:.6rem; }
+#shop .brand i{ width:18px; height:18px; border-radius:50%;
+  background:radial-gradient(closest-side,var(--gem),var(--gem-ink));
+  box-shadow:0 0 0 2px #fff inset, 0 0 0 3px rgba(111,59,162,.25);
+}
+
+/* Breadcrumb / intro */
+#shop .crumbs{ border-top:1px solid #eae6e0; background:linear-gradient(#fff,var(--marble)); }
+#shop .crumbs .container{ padding:.6rem var(--gutter); font-size:.95rem; color:var(--muted); }
+#shop .intro{ padding: clamp(18px,5vw,36px) 0; }
+
+/* Layout */
+#shop .layout{ display:grid; grid-template-columns: 280px 1fr; gap: clamp(16px,2.4vw,24px); }
+@media (max-width: 980px){ #shop .layout{ grid-template-columns: 1fr; } }
+
+/* Filter sidebar */
+#shop .panel{
+  background:#fff; border:1px solid color-mix(in oklab,var(--gem) 14%,transparent);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: clamp(12px,2vw,18px);
+}
+#shop .facet{ border-bottom:1px solid #e9e4dc; padding:10px 0; }
+#shop .facet:last-child{ border-bottom:none; }
+#shop .facet summary{ list-style:none; cursor:pointer; font-weight:600; display:flex; justify-content:space-between; align-items:center; }
+#shop .facet summary::-webkit-details-marker{ display:none; }
+#shop .facet .body{ padding-top:10px; }
+#shop .check{ display:flex; align-items:center; gap:.55rem; margin:.25rem 0; }
+#shop .check input{ width:18px; height:18px; accent-color: var(--gem); }
+#shop .price-rows{ display:grid; gap:8px; }
+#shop .row{ display:flex; gap:.5rem; }
+#shop .row input[type="number"]{
+  width:100%; padding:.6rem .8rem; border-radius:999px; border:1.6px solid #dcd6cb; background:var(--marble); outline:none;
+}
+#shop .row input[type="number"]:focus{ border-color:var(--gem); background:#fff; box-shadow:var(--ring); }
+#shop .panel .controls{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top:8px; }
+#shop .btn{
+  --bg:transparent; --fg:var(--ink); --bd:var(--gem);
+  display:inline-flex; align-items:center; gap:.5rem; padding:.7rem 1.1rem; border-radius:999px;
+  border:1.8px solid var(--bd); color:var(--fg); background:var(--bg); box-shadow:var(--ring);
+  transition:transform var(--speed) var(--ease), background var(--speed) var(--ease);
+}
+#shop .btn:hover{ transform:translateY(-1px); background:color-mix(in oklab,var(--gem) 7%,white); }
+#shop .btn.primary{ --bg:var(--gem); --fg:#fff; }
+#shop .btn.primary:hover{ background:color-mix(in oklab,var(--gem) 88%,white); }
+
+/* Top bar (sort + density + mobile filter toggle) */
+#shop .toolbar{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  border:1px solid color-mix(in oklab,var(--gem) 14%,transparent); background:#fff; border-radius: var(--radius);
+  box-shadow: var(--shadow); padding:10px 12px;
+}
+#shop .select{
+  display:inline-flex; align-items:center; gap:.5rem; border:1.6px solid #dcd6cb; border-radius:999px; padding:.2rem .6rem; background:var(--marble);
+}
+#shop select{
+  border:none; background:transparent; outline:none; padding:.6rem .4rem; font:inherit;
+}
+#shop .density{ display:flex; gap:.4rem; }
+#shop .pill{
+  border:1.6px solid color-mix(in oklab,var(--gem) 40%, #d9d0e6); border-radius:999px; padding:.45rem .8rem; background:#fff; cursor:pointer;
+}
+#shop .pill[aria-pressed="true"]{ background:var(--gem-pale); border-color:var(--gem); }
+#shop .filter-toggle{ display:none; }
+@media (max-width:980px){
+  #shop .filter-toggle{ display:inline-flex; }
+}
+
+/* Product grid */
+#shop .grid{
+  --gap: clamp(12px,2vw,18px);
+  display:grid; gap:var(--gap);
+  grid-template-columns: repeat(var(--cols), 1fr);
+}
+@media (max-width:1100px){ #shop .grid{ --cols: 3; } }
+@media (max-width:780px){ #shop .grid{ --cols: 2; } }
+@media (max-width:480px){ #shop .grid{ --cols: 1; } }
+
+#shop .card{
+  background:#fff; border:1px solid color-mix(in oklab,var(--gem) 14%,transparent);
+  border-radius: var(--radius-sm); overflow:hidden; box-shadow: var(--shadow);
+  transition: transform var(--speed) var(--ease), box-shadow var(--speed) var(--ease);
+}
+#shop .card:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.08); }
+#shop .card .img{ aspect-ratio: 1/1; overflow:hidden; background:#fff; }
+#shop .card .img img{ width:100%; height:100%; object-fit:cover; transition: transform var(--speed) var(--ease); }
+#shop .card:hover .img img{ transform:scale(1.03); }
+#shop .card .info{ padding: 10px 12px 12px; display:grid; gap:2px; }
+#shop .name{ font-family:"Fraunces",serif; font-size:18px; }
+#shop .meta{ color:var(--muted); font-size:.95rem; }
+#shop .price{ font-weight:600; }
+#shop .actions{ display:flex; gap:.5rem; margin-top:6px; }
+#shop .small{ padding:.45rem .75rem; border-radius:999px; border:1.6px solid color-mix(in oklab,var(--gem) 40%, #d9d0e6); background:#fff; }
+#shop .small.primary{ border-color:var(--gem); background:var(--gem); color:#fff; }
+
+/* Off-canvas filter for mobile */
+#shop .drawer{
+  position:fixed; inset:0 auto 0 0; width:min(92vw, 360px); background:#fff; transform:translateX(-100%);
+  transition: transform var(--speed) var(--ease); z-index:60;
+  border-right:1px solid color-mix(in oklab,var(--gem) 14%,transparent); box-shadow: 6px 0 24px rgba(0,0,0,.12);
+  padding:12px;
+}
+#shop .drawer.open{ transform:none; }
+#shop .scrim{
+  position:fixed; inset:0; background:rgba(0,0,0,.3); opacity:0; pointer-events:none; transition:opacity var(--speed) var(--ease); z-index:55;
+}
+#shop .scrim.show{ opacity:1; pointer-events:auto; }
+
+/* Quick View Modal */
+#shop .modal{
+  position:fixed; inset:0; display:grid; place-items:center; z-index:70; pointer-events:none;
+}
+#shop .modal .back{
+  position:absolute; inset:0; background:rgba(0,0,0,.35); opacity:0; transition:opacity var(--speed) var(--ease);
+}
+#shop .modal .sheet{
+  position:relative; width:min(960px, 92vw); background:#fff; border:1px solid color-mix(in oklab,var(--gem) 14%,transparent);
+  border-radius:var(--radius); box-shadow:0 14px 50px rgba(0,0,0,.18); transform:translateY(10px) scale(.98);
+  opacity:0; transition: transform var(--speed) var(--ease), opacity var(--speed) var(--ease);
+}
+#shop .modal.open{ pointer-events:auto; }
+#shop .modal.open .back{ opacity:1; }
+#shop .modal.open .sheet{ transform:none; opacity:1; }
+#shop .qv{
+  display:grid; grid-template-columns: 1.1fr .9fr; gap: clamp(14px,2.2vw,20px); padding: clamp(12px,2.2vw,20px);
+}
+@media (max-width:900px){ #shop .qv{ grid-template-columns:1fr; } }
+#shop .qv .hero{ aspect-ratio: 1/1; border-radius:var(--radius-sm); overflow:hidden; border:1px solid color-mix(in oklab,var(--gem) 14%,transparent); }
+#shop .qv .pad{ padding: 4px 6px 10px 6px; }
+#shop .close{
+  position:absolute; top:8px; right:8px; border-radius:999px; border:1.6px solid color-mix(in oklab,var(--gem) 40%, #d9d0e6); background:#fff; padding:.4rem .6rem; cursor:pointer;
+}
+
+/* Visually hidden */
+#shop .sr{ position:absolute!important; clip:rect(1px,1px,1px,1px); clip-path:inset(50%); height:1px; width:1px; overflow:hidden; white-space:nowrap; border:0; padding:0; margin:-1px; }
+</style>
+</head>
+<body>
+<main id="shop" aria-label="Aureline Shop Collection">
+
+  <!-- Header -->
+  <header>
+    <div class="topbar container">
+      <div class="brand"><i aria-hidden="true"></i><a href="#">Aureline</a></div>
+      <nav aria-label="Main">
+        <ul style="display:flex; gap:clamp(.6rem,2.2vw,1.4rem); list-style:none; margin:0; padding:0">
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Stones</a></li>
+          <li><a href="#">Our Craft</a></li>
+          <li><a href="#">Journal</a></li>
+        </ul>
+      </nav>
+      <a href="#" aria-label="View cart">👜 Cart</a>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <div class="crumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <a href="#">Home</a> › Shop
+    </div>
+  </div>
+
+  <!-- Intro / Toolbar -->
+  <section class="intro">
+    <div class="container">
+      <div style="display:flex; align-items:end; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:12px">
+        <div>
+          <div class="h1">Shop Jewelry</div>
+          <div class="muted">Understated fine jewelry in ethically sourced natural stones.</div>
+        </div>
+        <button class="btn filter-toggle" id="open-drawer" type="button" aria-expanded="false">Filters</button>
+      </div>
+
+      <div class="toolbar" role="region" aria-label="Sorting and density controls">
+        <div class="select">
+          <label for="sort" class="sr">Sort</label>
+          <span>Sort:</span>
+          <select id="sort" name="sort">
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price — Low to High</option>
+            <option value="price-desc">Price — High to Low</option>
+            <option value="newest">Newest</option>
+          </select>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:.6rem">
+          <span class="muted">Density:</span>
+          <div class="density" role="group" aria-label="Grid density">
+            <button class="pill" data-density="3" aria-pressed="true">Comfortable</button>
+            <button class="pill" data-density="4" aria-pressed="false">Cozy</button>
+            <button class="pill" data-density="5" aria-pressed="false">Compact</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Layout: Sidebar + Grid -->
+  <section class="container layout" id="layout">
+    <!-- Sidebar (desktop) -->
+    <aside class="panel" aria-label="Filters" id="sidebar">
+      <details class="facet" open>
+        <summary>Stone <span aria-hidden="true">+</span></summary>
+        <div class="body" id="facet-stone">
+          <label class="check"><input type="checkbox" value="Sapphire" checked /> Sapphire</label>
+          <label class="check"><input type="checkbox" value="Moonstone" checked /> Moonstone</label>
+          <label class="check"><input type="checkbox" value="Labradorite" checked /> Labradorite</label>
+          <label class="check"><input type="checkbox" value="Aquamarine" checked /> Aquamarine</label>
+          <label class="check"><input type="checkbox" value="Rose Quartz" checked /> Rose Quartz</label>
+          <label class="check"><input type="checkbox" value="Amethyst" checked /> Amethyst</label>
+        </div>
+      </details>
+
+      <details class="facet" open>
+        <summary>Metal <span aria-hidden="true">+</span></summary>
+        <div class="body" id="facet-metal">
+          <label class="check"><input type="checkbox" value="14k Gold" checked /> 14k Gold</label>
+          <label class="check"><input type="checkbox" value="Gold-Fill" checked /> Gold-Fill</label>
+          <label class="check"><input type="checkbox" value="Sterling Silver" checked /> Sterling Silver</label>
+        </div>
+      </details>
+
+      <details class="facet" open>
+        <summary>Price <span aria-hidden="true">+</span></summary>
+        <div class="body">
+          <div class="price-rows">
+            <div class="row">
+              <label class="sr" for="min">Min</label>
+              <input type="number" id="min" placeholder="Min $" min="0" step="10" />
+              <label class="sr" for="max">Max</label>
+              <input type="number" id="max" placeholder="Max $" min="0" step="10" />
+            </div>
+            <div class="row" style="gap:.4rem; flex-wrap:wrap">
+              <button class="small" data-price="0-250" type="button">≤ $250</button>
+              <button class="small" data-price="250-500" type="button">$250–$500</button>
+              <button class="small" data-price="500-1000" type="button">$500–$1,000</button>
+              <button class="small" data-price="0-99999" type="button">All</button>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <div class="controls">
+        <button class="btn" id="reset" type="button">Reset</button>
+      </div>
+    </aside>
+
+    <!-- Products Grid -->
+    <div>
+      <div class="grid" role="list" id="grid">
+        <!-- 24 demo products with data attributes -->
+        <!-- Use real photos; each card: data-stone, data-metal, data-price, data-new -->
+        <article class="card" role="listitem" data-stone="Moonstone" data-metal="14k Gold" data-price="320" data-new="9">
+          <div class="img"><img src="https://images.unsplash.com/photo-1516632664305-eda5d6a5bb3b?q=80&w=1200&auto=format&fit=crop" alt="Moonstone Halo Pendant" /></div>
+          <div class="info">
+            <div class="name">Moonstone Halo Pendant</div>
+            <div class="meta">14k Gold • 16–18"</div>
+            <div class="price">$320</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem" data-stone="Sapphire" data-metal="14k Gold" data-price="780" data-new="5">
+          <div class="img"><img src="https://images.unsplash.com/photo-1609167830220-7164b4d1b271?q=80&w=1200&auto=format&fit=crop" alt="Sapphire Solitaire Ring" /></div>
+          <div class="info">
+            <div class="name">Sapphire Solitaire Ring</div>
+            <div class="meta">14k Gold • Low-profile</div>
+            <div class="price">$780</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem" data-stone="Rose Quartz" data-metal="Gold-Fill" data-price="210" data-new="20">
+          <div class="img"><img src="https://images.unsplash.com/photo-1599643475993-9f0c3c4970f9?q=80&w=1200&auto=format&fit=crop" alt="Rose Quartz Drop Earrings" /></div>
+          <div class="info">
+            <div class="name">Rose Quartz Drop Earrings</div>
+            <div class="meta">Gold-Fill</div>
+            <div class="price">$210</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem" data-stone="Aquamarine" data-metal="Sterling Silver" data-price="265" data-new="12">
+          <div class="img"><img src="https://images.unsplash.com/photo-1523475496153-3d6cc0f0bf87?q=80&w=1200&auto=format&fit=crop" alt="Aquamarine Bezel Necklace" /></div>
+          <div class="info">
+            <div class="name">Aquamarine Bezel Necklace</div>
+            <div class="meta">Sterling Silver • 18"</div>
+            <div class="price">$265</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem" data-stone="Labradorite" data-metal="Gold-Fill" data-price="240" data-new="18">
+          <div class="img"><img src="https://images.unsplash.com/photo-1603569283847-1f8f7c3f94a2?q=80&w=1200&auto=format&fit=crop" alt="Labradorite Orbit Ring" /></div>
+          <div class="info">
+            <div class="name">Labradorite Orbit Ring</div>
+            <div class="meta">Gold-Fill</div>
+            <div class="price">$240</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem" data-stone="Sapphire" data-metal="14k Gold" data-price="420" data-new="22">
+          <div class="img"><img src="https://images.unsplash.com/photo-1585386959984-a41552231659?q=80&w=1200&auto=format&fit=crop" alt="Sapphire Pavé Band" /></div>
+          <div class="info">
+            <div class="name">Sapphire Pavé Band</div>
+            <div class="meta">14k Gold • Stackable</div>
+            <div class="price">$420</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem" data-stone="Moonstone" data-metal="Sterling Silver" data-price="185" data-new="35">
+          <div class="img"><img src="https://images.unsplash.com/photo-1516233758813-3315fd163c8e?q=80&w=1200&auto=format&fit=crop" alt="Moonstone Stud Trio" /></div>
+          <div class="info">
+            <div class="name">Moonstone Stud Trio</div>
+            <div class="meta">Sterling Silver</div>
+            <div class="price">$185</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem" data-stone="Rose Quartz" data-metal="14k Gold" data-price="360" data-new="8">
+          <div class="img"><img src="https://images.unsplash.com/photo-1516637090014-cb1ab0d08fc7?q=80&w=1200&auto=format&fit=crop" alt="Rose Quartz Signet" /></div>
+          <div class="info">
+            <div class="name">Rose Quartz Signet</div>
+            <div class="meta">14k Gold • Satin Finish</div>
+            <div class="price">$360</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Add more items with varied stones/metals/prices -->
+        <article class="card" role="listitem" data-stone="Amethyst" data-metal="14k Gold" data-price="540" data-new="3">
+          <div class="img"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop" alt="Amethyst Cushion Pendant" /></div>
+          <div class="info">
+            <div class="name">Amethyst Cushion Pendant</div>
+            <div class="meta">14k Gold</div>
+            <div class="price">$540</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem" data-stone="Amethyst" data-metal="Sterling Silver" data-price="190" data-new="16">
+          <div class="img"><img src="https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?q=80&w=1200&auto=format&fit=crop" alt="Amethyst Petite Studs" /></div>
+          <div class="info">
+            <div class="name">Amethyst Petite Studs</div>
+            <div class="meta">Sterling Silver</div>
+            <div class="price">$190</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem" data-stone="Aquamarine" data-metal="14k Gold" data-price="610" data-new="2">
+          <div class="img"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200&auto=format&fit=crop" alt="Aquamarine East-West Ring" /></div>
+          <div class="info">
+            <div class="name">Aquamarine East-West Ring</div>
+            <div class="meta">14k Gold</div>
+            <div class="price">$610</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem" data-stone="Labradorite" data-metal="Sterling Silver" data-price="230" data-new="30">
+          <div class="img"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1200&auto=format&fit=crop" alt="Labradorite Teardrop Necklace" /></div>
+          <div class="info">
+            <div class="name">Labradorite Teardrop Necklace</div>
+            <div class="meta">Sterling Silver</div>
+            <div class="price">$230</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" role="listitem" data-stone="Sapphire" data-metal="Gold-Fill" data-price="295" data-new="25">
+          <div class="img"><img src="https://images.unsplash.com/photo-1514053026555-49ce8886ae41?q=80&w=1200&auto=format&fit=crop" alt="Sapphire Station Necklace" /></div>
+          <div class="info">
+            <div class="name">Sapphire Station Necklace</div>
+            <div class="meta">Gold-Fill</div>
+            <div class="price">$295</div>
+            <div class="actions">
+              <button class="small primary qv-btn" type="button">Quick View</button>
+              <button class="small add-btn" type="button">Add</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- (You can duplicate/adjust more cards as needed for demo volume) -->
+      </div>
+      <div style="margin-top:10px" class="muted" id="count"></div>
+    </div>
+  </section>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer" role="dialog" aria-modal="true" aria-label="Filters" id="drawer">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px">
+      <div class="h3" style="font-size:18px">Filters</div>
+      <button class="btn" id="close-drawer" type="button">Close</button>
+    </div>
+    <div class="panel" style="box-shadow:none; border:none; padding:0">
+      <!-- Clone of sidebar content for mobile -->
+      <div id="drawer-content"></div>
+      <div class="controls" style="margin-top:10px">
+        <button class="btn" id="reset-m" type="button">Reset</button>
+      </div>
+    </div>
+  </div>
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
+
+  <!-- Quick View Modal -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="back" id="modal-back" aria-hidden="true"></div>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qv-title">
+      <button class="close" id="close-modal" aria-label="Close">✕</button>
+      <div class="qv">
+        <figure class="hero"><img id="qv-img" src="" alt="" style="width:100%; height:100%; object-fit:cover" /></figure>
+        <div class="pad">
+          <div id="qv-title" class="h2" style="margin:2px 0 6px"></div>
+          <div class="muted" id="qv-meta"></div>
+          <div class="h3" id="qv-price" style="margin:8px 0 10px"></div>
+          <div style="display:flex; gap:.6rem; flex-wrap:wrap">
+            <button class="btn primary" id="qv-add">Add to Cart</button>
+            <button class="btn" id="qv-save">♡ Save</button>
+          </div>
+          <div style="margin-top:10px" class="muted">Ethically sourced • Small-batch craftsmanship</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid #e8e4dc;background:linear-gradient(#fff,var(--marble));padding:18px 0;color:var(--slate); margin-top:28px">
+    <div class="container" style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <div class="brand"><i aria-hidden="true"></i><span>Aureline</span></div>
+      <small>© <span id="year"></span> Aureline · <a href="#">Privacy</a> · <a href="#">Terms</a></small>
+    </div>
+  </footer>
+</main>
+
+<script>
+/* ==========================
+   Interactions
+   ========================== */
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+/* Year */
+$('#year').textContent = new Date().getFullYear();
+
+/* Density (changes CSS var --cols) */
+const densityBtns = $$('.density .pill');
+function setDensity(cols){
+  document.querySelector('#shop .grid').style.setProperty('--cols', cols);
+  densityBtns.forEach(b=>b.setAttribute('aria-pressed', b.dataset.density === String(cols)));
+}
+densityBtns.forEach(b=> b.addEventListener('click', ()=> setDensity(Number(b.dataset.density)) ));
+
+/* Drawer (mobile filters) */
+const drawer = $('#drawer'), scrim = $('#scrim');
+const openBtn = $('#open-drawer'), closeBtn = $('#close-drawer');
+openBtn.addEventListener('click', ()=>{ drawer.classList.add('open'); scrim.classList.add('show'); openBtn.setAttribute('aria-expanded','true'); });
+function closeDrawer(){ drawer.classList.remove('open'); scrim.classList.remove('show'); openBtn.setAttribute('aria-expanded','false'); }
+closeBtn.addEventListener('click', closeDrawer); scrim.addEventListener('click', closeDrawer);
+
+/* Clone sidebar content into drawer once */
+(function cloneSidebar(){
+  const clone = $('#sidebar').cloneNode(true);
+  // remove ids to avoid duplicate ids
+  clone.id = '';
+  $('#drawer-content').append(...clone.children);
+})();
+
+/* Filter engine */
+const grid = $('#grid');
+const cards = $$('#grid .card');
+
+function getFacetValues(root){
+  const stones = $$('#facet-stone input', root).filter(x=>x.checked).map(x=>x.value);
+  const metals = $$('#facet-metal input', root).filter(x=>x.checked).map(x=>x.value);
+  const min = Number($('#min', root)?.value || $('#min')?.value || 0) || 0;
+  const max = Number($('#max', root)?.value || $('#max')?.value || 999999) || 999999;
+  return {stones, metals, min, max};
+}
+
+function applyFilters(){
+  const dVals = getFacetValues(drawer);   // drawer (mobile)
+  const sVals = getFacetValues(document); // sidebar (desktop)
+
+  // Merge selections (OR across UIs)
+  const stones = (dVals.stones.length? dVals.stones : sVals.stones);
+  const metals = (dVals.metals.length? dVals.metals : sVals.metals);
+  const min = Math.min(dVals.min || sVals.min, sVals.min || dVals.min);
+  const max = Math.max(dVals.max || sVals.max, sVals.max || dVals.max);
+
+  let shown = 0;
+  cards.forEach(card=>{
+    const stone = card.dataset.stone;
+    const metal = card.dataset.metal;
+    const price = Number(card.dataset.price);
+    const ok = stones.includes(stone) && metals.includes(metal) && price>=min && price<=max;
+    card.style.display = ok ? '' : 'none';
+    if(ok) shown++;
+  });
+  $('#count').textContent = `${shown} item${shown===1?'':'s'} shown`;
+  sortCards($('#sort').value);
+}
+
+function sortCards(mode){
+  const list = cards.filter(c=>c.style.display !== 'none');
+  const byPrice = (a,b)=> Number(a.dataset.price) - Number(b.dataset.price);
+  const byNew = (a,b)=> Number(b.dataset.new) - Number(a.dataset.new); // higher = newer
+  if(mode==='price-asc') list.sort(byPrice);
+  else if(mode==='price-desc') list.sort((a,b)=> byPrice(b,a));
+  else if(mode==='newest') list.sort(byNew);
+  else /* featured */ return;
+
+  list.forEach(el=> grid.appendChild(el)); // reflow order
+}
+
+/* Change handlers (auto-apply) */
+['change','input'].forEach(evt=>{
+  $('#sidebar').addEventListener(evt, applyFilters);
+  $('#drawer').addEventListener(evt, applyFilters);
+});
+$('#sort').addEventListener('change', e=> sortCards(e.target.value));
+
+/* Price quick-buttons */
+$$('[data-price]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const [min,max] = btn.dataset.price.split('-').map(Number);
+    // set both UIs
+    $$('#min').forEach(i=>i.value=min);
+    $$('#max').forEach(i=>i.value=max);
+    applyFilters();
+  });
+});
+
+/* Reset */
+function resetAll(){
+  // check all checkboxes
+  $$('#facet-stone input, #facet-metal input').forEach(inp=> inp.checked = true);
+  $$('#min,#max').forEach(i=> i.value = '');
+  $('#sort').value = 'featured';
+  setDensity(3);
+  applyFilters();
+}
+$('#reset').addEventListener('click', resetAll);
+$('#reset-m').addEventListener('click', ()=>{ resetAll(); closeDrawer(); });
+
+/* Initial filter state + count */
+applyFilters();
+
+/* Quick View */
+const modal = $('#modal'), qvImg = $('#qv-img'), qvTitle = $('#qv-title'), qvMeta = $('#qv-meta'), qvPrice = $('#qv-price');
+function openModal(card){
+  qvImg.src = card.querySelector('.img img').src;
+  qvImg.alt = card.querySelector('.img img').alt;
+  qvTitle.textContent = card.querySelector('.name').textContent;
+  qvMeta.textContent = card.querySelector('.meta').textContent;
+  qvPrice.textContent = card.querySelector('.price').textContent;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+}
+function closeModal(){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+}
+$('#close-modal').addEventListener('click', closeModal);
+$('#modal-back').addEventListener('click', closeModal);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+$$('.qv-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=> openModal(btn.closest('.card')) );
+});
+$('#qv-add').addEventListener('click', ()=> toast('Added to cart'));
+$('#qv-save').addEventListener('click', ()=> toast('Saved to wishlist'));
+
+/* Add to cart (card) */
+$$('.add-btn').forEach(btn=> btn.addEventListener('click', ()=> toast('Added to cart')) );
+
+/* Tiny toast */
+function toast(msg){
+  const el = document.createElement('div');
+  el.textContent = msg;
+  el.style.cssText='position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#fff;border:1px solid rgba(111,59,162,.25);padding:.7rem 1rem;border-radius:999px;box-shadow:0 8px 28px rgba(0,0,0,.12);z-index:80';
+  document.body.appendChild(el);
+  setTimeout(()=> el.remove(), 2000);
+}
+</script>
+</body>
+</html>
