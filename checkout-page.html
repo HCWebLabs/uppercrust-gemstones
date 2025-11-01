@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Aureline — Checkout</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light" />
+<meta name="description" content="Aureline checkout — secure shipping and payment with ethically sourced, small-batch jewelry." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ==========================
+   AURELINE — CHECKOUT (AMETHYST)
+   ========================== */
+#checkout, #checkout * { box-sizing: border-box; }
+#checkout{
+  --ivory:#FAF9F7; --marble:#F4F2EE; --linen:#EAE4DA;
+  --gem:#6F3BA2; --gem-ink:#5A2D85; --gem-soft:#BDA3D6; --gem-pale:#E9E0F3;
+  --slate:#4B4A47; --ink:#2f2e2b; --muted:#7e7b75; --ok:#1b875a; --warn:#c14b3a;
+  --ring:0 0 0 2px rgba(111,59,162,.12); --shadow:0 6px 18px rgba(0,0,0,.06);
+  --radius:14px; --radius-sm:10px; --gutter:clamp(16px,3vw,32px);
+  --container:min(1100px, 94vw); --speed:260ms; --ease:cubic-bezier(.22,.61,.36,1);
+  background:var(--ivory); color:var(--ink);
+  font-family:"Work Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.6;
+}
+#checkout .container{ width:var(--container); margin-inline:auto; }
+#checkout a{ color:inherit; text-decoration:none; }
+#checkout .h1,.h2,.h3{ font-family:"Fraunces",serif; line-height:1.2; letter-spacing:.02em; }
+#checkout .h1{ font-size:clamp(26px,4vw,38px); font-weight:600; }
+#checkout .h2{ font-size:clamp(20px,3vw,26px); font-weight:600; }
+#checkout .h3{ font-size:clamp(18px,2.2vw,20px); font-weight:600; }
+#checkout .muted{ color:var(--muted); }
+#checkout small.muted{ font-size:.95rem }
+
+/* Header */
+#checkout header{ position:sticky; top:0; z-index:30; background:linear-gradient(#fff,#fff0);
+  border-bottom:1px solid color-mix(in oklab,var(--gem) 16%, transparent); backdrop-filter:saturate(1.1) blur(8px); }
+@supports not (backdrop-filter: blur(8px)){ #checkout header{ background:#fff; } }
+#checkout .topbar{ display:flex; align-items:center; justify-content:space-between; padding:.9rem var(--gutter); }
+#checkout .brand{ font-family:"Fraunces",serif; font-weight:600; display:flex; gap:.6rem; align-items:center; letter-spacing:.06em }
+#checkout .brand i{ width:18px; height:18px; border-radius:50%; background:radial-gradient(closest-side,var(--gem),var(--gem-ink));
+  box-shadow:0 0 0 2px #fff inset, 0 0 0 3px rgba(111,59,162,.25); }
+
+/* Progress */
+#checkout .steps{ display:flex; gap:.5rem; align-items:center; color:var(--muted); font-weight:600; }
+#checkout .steps .dot{ width:10px; height:10px; border-radius:50%; background:var(--gem-pale); }
+#checkout .steps .dot.active{ background:var(--gem); }
+
+/* Layout */
+#checkout main{ padding: clamp(18px, 5vw, 36px) 0; }
+#checkout .grid{ display:grid; gap:clamp(16px,2.5vw,24px); grid-template-columns: 1.1fr .9fr; }
+@media (max-width: 980px){ #checkout .grid{ grid-template-columns: 1fr; } }
+
+/* Panels */
+#checkout .panel{ background:#fff; border:1px solid color-mix(in oklab,var(--gem) 14%,transparent);
+  border-radius:var(--radius); box-shadow:var(--shadow); padding: clamp(12px,2.2vw,18px); }
+#checkout .row{ display:grid; gap:10px; grid-template-columns: 1fr 1fr; }
+@media (max-width:680px){ #checkout .row{ grid-template-columns: 1fr; } }
+
+/* Inputs */
+#checkout label{ font-weight:600; display:inline-block; margin-bottom:4px; }
+#checkout input[type="text"],
+#checkout input[type="email"],
+#checkout input[type="tel"],
+#checkout input[type="number"],
+#checkout select, #checkout textarea{
+  width:100%; padding:.85rem 1rem; border-radius:999px; border:1.6px solid #dcd6cb; background:var(--marble); outline:none;
+  transition:border-color var(--speed) var(--ease), background var(--speed) var(--ease), box-shadow var(--speed) var(--ease);
+  font:inherit;
+}
+#checkout textarea{ border-radius:12px; min-height:84px; resize:vertical; }
+#checkout input:focus, #checkout select:focus, #checkout textarea:focus{ border-color:var(--gem); background:#fff; box-shadow:var(--ring); }
+#checkout .hint{ font-size:.92rem; color:var(--muted); margin-top:4px; }
+#checkout .error{ color:var(--warn); font-size:.95rem; margin-top:4px; display:none; }
+
+/* Radio cards */
+#checkout .radios{ display:grid; gap:8px; }
+#checkout .radio-card{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.8rem 1rem; border:1.6px solid #dcd6cb; border-radius:12px; background:#fff;
+  transition:border-color var(--speed) var(--ease), box-shadow var(--speed) var(--ease);
+}
+#checkout .radio-card:has(input:checked){ border-color:var(--gem); box-shadow:var(--ring); }
+
+/* Buttons */
+#checkout .btn{
+  --bg:transparent; --fg:var(--ink); --bd:var(--gem);
+  display:inline-flex; align-items:center; gap:.55rem; padding:.9rem 1.2rem; border-radius:999px;
+  border:1.8px solid var(--bd); background:var(--bg); color:var(--fg); box-shadow:var(--ring);
+  transition:transform var(--speed) var(--ease), background var(--speed) var(--ease);
+}
+#checkout .btn:hover{ transform:translateY(-1px); background:color-mix(in oklab,var(--gem) 7%, white); }
+#checkout .btn.primary{ --bg:var(--gem); --fg:#fff; border-color:var(--gem); }
+#checkout .btn.primary:hover{ background:color-mix(in oklab,var(--gem) 88%, white); }
+#checkout .btn.small{ padding:.5rem .9rem; }
+
+/* Summary */
+#checkout .summary .line{ display:flex; align-items:center; gap:.7rem; }
+#checkout .summary .thumb{ width:60px; height:60px; border-radius:10px; overflow:hidden; border:1px solid #eee; background:#fff; }
+#checkout .summary .meta{ color:var(--muted); font-size:.95rem; }
+#checkout .totals{ border-top:1px solid #e9e4dc; margin-top:10px; padding-top:10px; display:grid; gap:6px; }
+#checkout .rt{ display:flex; justify-content:space-between; }
+#checkout .rt.total{ font-weight:700; font-size:1.05rem; }
+
+/* Promo */
+#checkout .promo{ display:flex; gap:.5rem; }
+#checkout .promo input{ flex:1; }
+
+/* Trust */
+#checkout .trust{ display:grid; grid-template-columns: repeat(3,1fr); gap:8px; margin-top:10px; }
+@media (max-width:680px){ #checkout .trust{ grid-template-columns:1fr; } }
+#checkout .trust .pill{ display:flex; align-items:center; gap:.6rem; padding:.55rem .8rem; border:1px solid color-mix(in oklab,var(--gem) 18%, transparent); border-radius:999px; background:#fff; box-shadow:var(--ring); }
+
+/* Sticky order button (mobile) */
+#checkout .sticky{
+  position:sticky; bottom:0; margin-top:12px; padding:10px; background:linear-gradient(to top,#fff,#ffffffc8 60%,#ffffff00);
+  border-top:1px solid #e9e4dc;
+}
+
+/* Visually hidden */
+#checkout .sr{ position:absolute!important; clip:rect(1px,1px,1px,1px); clip-path:inset(50%); height:1px; width:1px; overflow:hidden; white-space:nowrap; border:0; padding:0; margin:-1px; }
+</style>
+</head>
+<body>
+<div id="checkout">
+  <!-- Header -->
+  <header>
+    <div class="topbar container">
+      <div class="brand"><i aria-hidden="true"></i><a href="#">Aureline</a></div>
+      <div class="steps" aria-label="Checkout progress">
+        <span class="dot active" aria-hidden="true"></span><span>Information</span> ·
+        <span class="dot active" aria-hidden="true"></span><span>Shipping</span> ·
+        <span class="dot" aria-hidden="true"></span><span>Payment</span> ·
+        <span class="dot" aria-hidden="true"></span><span>Review</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <div class="container grid">
+      <!-- Left: Forms -->
+      <section aria-label="Customer and shipping details" class="panel">
+        <div class="h1" style="margin-bottom:6px">Checkout</div>
+        <p class="muted" style="margin-top:0">We keep your information private and secure.</p>
+
+        <form id="ck-form" novalidate>
+          <!-- Contact -->
+          <div class="h2" style="margin:8px 0">Contact</div>
+          <div class="row">
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required />
+              <div class="hint">Order confirmation is sent here.</div>
+              <div class="error" data-error-for="email">Please enter a valid email.</div>
+            </div>
+            <div>
+              <label for="phone">Phone (for delivery)</label>
+              <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555" autocomplete="tel" />
+              <div class="hint">Optional — used only for delivery issues.</div>
+            </div>
+          </div>
+
+          <!-- Shipping Address -->
+          <div class="h2" style="margin:12px 0 6px">Shipping Address</div>
+          <div class="row">
+            <div>
+              <label for="fname">First name</label>
+              <input id="fname" name="fname" type="text" autocomplete="given-name" required />
+              <div class="error" data-error-for="fname">First name required.</div>
+            </div>
+            <div>
+              <label for="lname">Last name</label>
+              <input id="lname" name="lname" type="text" autocomplete="family-name" required />
+              <div class="error" data-error-for="lname">Last name required.</div>
+            </div>
+          </div>
+          <div>
+            <label for="addr1">Address</label>
+            <input id="addr1" name="addr1" type="text" autocomplete="address-line1" required />
+            <div class="error" data-error-for="addr1">Address required.</div>
+          </div>
+          <div>
+            <label for="addr2">Apartment, suite, etc. (optional)</label>
+            <input id="addr2" name="addr2" type="text" autocomplete="address-line2" />
+          </div>
+          <div class="row">
+            <div>
+              <label for="city">City</label>
+              <input id="city" name="city" type="text" autocomplete="address-level2" required />
+              <div class="error" data-error-for="city">City required.</div>
+            </div>
+            <div>
+              <label for="state">State</label>
+              <select id="state" name="state" autocomplete="address-level1" required>
+                <option value="">Select</option>
+                <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
+                <option>CO</option><option>CT</option><option>DC</option><option>DE</option><option>FL</option>
+                <option>GA</option><option>HI</option><option>IA</option><option>ID</option><option>IL</option>
+                <option>IN</option><option>KS</option><option>KY</option><option>LA</option><option>MA</option>
+                <option>MD</option><option>ME</option><option>MI</option><option>MN</option><option>MO</option>
+                <option>MS</option><option>MT</option><option>NC</option><option>ND</option><option>NE</option>
+                <option>NH</option><option>NJ</option><option>NM</option><option>NV</option><option>NY</option>
+                <option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option>
+                <option>SC</option><option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+                <option>VA</option><option>VT</option><option>WA</option><option>WI</option><option>WV</option><option>WY</option>
+              </select>
+              <div class="error" data-error-for="state">State required.</div>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="zip">ZIP</label>
+              <input id="zip" name="zip" inputmode="numeric" maxlength="10" placeholder="12345" autocomplete="postal-code" required />
+              <div class="error" data-error-for="zip">ZIP required.</div>
+            </div>
+            <div>
+              <label for="country">Country</label>
+              <select id="country" name="country" required>
+                <option value="US" selected>United States</option>
+              </select>
+              <div class="error" data-error-for="country">Country required.</div>
+            </div>
+          </div>
+
+          <!-- Shipping options -->
+          <div class="h2" style="margin:14px 0 6px">Shipping</div>
+          <div class="radios" id="ship-methods">
+            <label class="radio-card">
+              <span>
+                <input type="radio" name="ship" value="standard" checked />
+                <strong>Standard</strong> — 3–5 business days
+              </span>
+              <span class="price" data-price="8">$8</span>
+            </label>
+            <label class="radio-card">
+              <span>
+                <input type="radio" name="ship" value="expedited" />
+                <strong>Expedited</strong> — 2 business days
+              </span>
+              <span class="price" data-price="18">$18</span>
+            </label>
+            <label class="radio-card">
+              <span>
+                <input type="radio" name="ship" value="overnight" />
+                <strong>Overnight</strong> — next business day
+              </span>
+              <span class="price" data-price="36">$36</span>
+            </label>
+            <small class="muted" id="free-note" style="display:none">Standard shipping is free over <b>$400</b>.</small>
+          </div>
+
+          <!-- Gift -->
+          <details class="panel" style="margin-top:12px; padding:12px">
+            <summary style="cursor:pointer; font-weight:700">Add a gift message (free)</summary>
+            <div style="margin-top:8px">
+              <label for="gift">Message</label>
+              <textarea id="gift" name="gift" placeholder="Write a note…"></textarea>
+            </div>
+          </details>
+
+          <!-- Payment (mock) -->
+          <div class="h2" style="margin:14px 0 6px">Payment</div>
+          <div class="row">
+            <div>
+              <label for="card">Card number</label>
+              <input id="card" name="card" inputmode="numeric" placeholder="4242 4242 4242 4242" required />
+              <div class="error" data-error-for="card">Enter a valid card number.</div>
+            </div>
+            <div>
+              <label for="name">Name on card</label>
+              <input id="name" name="name" type="text" placeholder="Full name" required />
+              <div class="error" data-error-for="name">Name required.</div>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="exp">Expiry</label>
+              <input id="exp" name="exp" placeholder="MM/YY" required />
+              <div class="error" data-error-for="exp">Use MM/YY.</div>
+            </div>
+            <div>
+              <label for="cvc">CVC</label>
+              <input id="cvc" name="cvc" inputmode="numeric" placeholder="CVC" required />
+              <div class="error" data-error-for="cvc">3–4 digits.</div>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:.6rem; margin-top:8px">
+            <input id="agree" type="checkbox" required />
+            <label for="agree">I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</label>
+          </div>
+          <div class="error" data-error-for="agree" style="display:none">Please agree to continue.</div>
+
+          <div class="sticky">
+            <button class="btn primary" type="submit" id="place">Place Order</button>
+            <small class="muted">You can review your order before confirming.</small>
+          </div>
+
+          <!-- Trust row -->
+          <div class="trust">
+            <div class="pill">🔒 <span>256-bit SSL secure checkout</span></div>
+            <div class="pill">↺ <span>Free 30-day returns</span></div>
+            <div class="pill">🌿 <span>Ethical sourcing & recycled metals</span></div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Right: Summary -->
+      <aside aria-label="Order summary" class="panel summary">
+        <div class="h2" style="margin-bottom:6px">Order Summary</div>
+
+        <div id="lines" style="display:grid; gap:8px">
+          <!-- Line items injected -->
+        </div>
+
+        <div style="margin-top:8px" class="promo">
+          <input id="code" type="text" placeholder="Promo code" />
+          <button class="btn small" id="apply" type="button">Apply</button>
+        </div>
+        <small class="muted" id="promo-note">Try <b>AURELINE10</b> for 10% off.</small>
+
+        <div class="totals">
+          <div class="rt"><span>Subtotal</span><span id="t-sub">$0</span></div>
+          <div class="rt"><span>Shipping</span><span id="t-ship">$0</span></div>
+          <div class="rt"><span>Estimated Tax</span><span id="t-tax">$0</span></div>
+          <div class="rt total"><span>Total</span><span id="t-total">$0</span></div>
+          <small class="muted">Tax is estimated and finalized at capture.</small>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script>
+/* ==========================
+   State & Utils
+   ========================== */
+const $ = (s, r=document)=>r.querySelector(s);
+const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
+const fmt = n => `$${Number(n).toFixed(2)}`;
+
+const FREE_SHIP_THRESHOLD = 400;
+const STANDARD_RATE = 8, EXPEDITED_RATE = 18, OVERNIGHT_RATE = 36;
+const TAX_RATE = 0.06; // simple estimate
+const PROMO = { code: 'AURELINE10', pct: 0.10 };
+
+let cart = [];
+try {
+  const saved = JSON.parse(sessionStorage.getItem('aureline_cart') || '[]');
+  if (Array.isArray(saved) && saved.length) cart = saved;
+} catch(e){}
+
+if (!cart.length) {
+  // Seed demo items if cart is empty
+  cart = [
+    { id:'Moonstone Halo Pendant|14k Gold • 16–18"', name:'Moonstone Halo Pendant', meta:'14k Gold • 16–18"', price:320, img:'https://images.unsplash.com/photo-1516632664305-eda5d6a5bb3b?q=80&w=800&auto=format&fit=crop', qty:1 },
+    { id:'Sapphire Solitaire Ring|14k Gold • Low-profile', name:'Sapphire Solitaire Ring', meta:'14k Gold • Low-profile', price:780, img:'https://images.unsplash.com/photo-1609167830220-7164b4d1b271?q=80&w=800&auto=format&fit=crop', qty:1 }
+  ];
+}
+
+let discount = 0; // absolute value, computed on apply
+let shippingMode = 'standard';
+let shippingCost = STANDARD_RATE;
+
+/* ==========================
+   Render Summary
+   ========================== */
+function renderLines(){
+  const wrap = $('#lines');
+  wrap.innerHTML = '';
+  if(!cart.length){
+    wrap.innerHTML = `<div class="muted" style="text-align:center;padding:12px">Your bag is empty.</div>`;
+  }
+  cart.forEach(item=>{
+    const row = document.createElement('div');
+    row.className = 'line';
+    row.innerHTML = `
+      <div class="thumb"><img alt="" src="${item.img}" style="width:100%;height:100%;object-fit:cover"/></div>
+      <div style="flex:1">
+        <div style="display:flex; justify-content:space-between; gap:.6rem">
+          <div>
+            <div class="h3" style="font-size:18px">${item.name}</div>
+            <div class="meta">${item.meta}</div>
+            <small class="muted">Qty ${item.qty}</small>
+          </div>
+          <div style="text-align:right">${fmt(item.price * item.qty)}</div>
+        </div>
+      </div>`;
+    wrap.appendChild(row);
+  });
+}
+
+function cartSubtotal(){
+  return cart.reduce((s,i)=> s + i.price * i.qty, 0);
+}
+
+function activeShipRate(subtotal){
+  const free = subtotal >= FREE_SHIP_THRESHOLD;
+  $('#free-note').style.display = 'inline';
+  const mode = shippingMode;
+  if(mode==='standard') return free ? 0 : STANDARD_RATE;
+  if(mode==='expedited') return EXPEDITED_RATE;
+  if(mode==='overnight') return OVERNIGHT_RATE;
+  return 0;
+}
+
+function updateShippingPrices(subtotal){
+  // Update visible label prices (if standard is free, show $0 with note)
+  $$('#ship-methods .radio-card').forEach(card=>{
+    const priceEl = card.querySelector('.price');
+    const base = Number(priceEl.dataset.price);
+    const val = card.querySelector('input').value;
+    if(val==='standard' && subtotal >= FREE_SHIP_THRESHOLD){
+      priceEl.textContent = '$0';
+    }else{
+      priceEl.textContent = '$'+base;
+    }
+  });
+}
+
+function totals(){
+  const sub = cartSubtotal();
+  updateShippingPrices(sub);
+  shippingCost = activeShipRate(sub);
+  const promoCut = Math.min(discount, sub); // cap
+  const taxedBase = Math.max(0, sub - promoCut) + shippingCost;
+  const tax = taxedBase * TAX_RATE;
+  const total = taxedBase + tax;
+  $('#t-sub').textContent = fmt(sub - promoCut);
+  $('#t-ship').textContent = fmt(shippingCost);
+  $('#t-tax').textContent = fmt(tax);
+  $('#t-total').textContent = fmt(total);
+}
+
+function applyCode(){
+  const input = $('#code').value.trim().toUpperCase();
+  if(input === PROMO.code){
+    discount = cartSubtotal() * PROMO.pct;
+    $('#promo-note').textContent = 'Promo applied: 10% off';
+    $('#promo-note').style.color = 'var(--ok)';
+  }else if(input===''){
+    discount = 0;
+    $('#promo-note').textContent = 'Try AURELINE10 for 10% off.';
+    $('#promo-note').style.color = '';
+  }else{
+    discount = 0;
+    $('#promo-note').textContent = 'Code not valid.';
+    $('#promo-note').style.color = 'var(--warn)';
+  }
+  totals();
+}
+
+/* ==========================
+   Form Validation (lightweight)
+   ========================== */
+const reqIds = ['email','fname','lname','addr1','city','state','zip','country','card','name','exp','cvc','agree'];
+
+function showError(id, show){
+  const el = document.querySelector(`[data-error-for="${id}"]`);
+  if(!el) return;
+  el.style.display = show ? 'block' : 'none';
+}
+
+function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function validCard(v){ return /^[0-9\s]{12,19}$/.test(v.replace(/\D/g,'')); }
+function validExp(v){ return /^(0[1-9]|1[0-2])\/\d{2}$/.test(v.trim()); }
+function validCVC(v){ return /^\d{3,4}$/.test(v.trim()); }
+function validZip(v){ return /^\d{5}(-\d{4})?$/.test(v.trim()); }
+
+function validate(){
+  let ok = true;
+  const vals = Object.fromEntries(reqIds.map(id=>[id, $('#'+id)]).filter(([_,el])=>el).map(([id,el])=>[id, el.type==='checkbox'? el.checked : el.value.trim()]));
+
+  // Required fields
+  ['fname','lname','addr1','city','state','country'].forEach(id=>{
+    const good = !!vals[id];
+    showError(id, !good); ok &= good;
+  });
+
+  // Email
+  const goodEmail = validEmail(vals.email||'');
+  showError('email', !goodEmail); ok &= goodEmail;
+
+  // ZIP
+  const goodZip = validZip(vals.zip||'');
+  showError('zip', !goodZip); ok &= goodZip;
+
+  // Payment
+  const goodCard = validCard(vals.card||'');
+  showError('card', !goodCard); ok &= goodCard;
+
+  const goodName = !!vals.name;
+  showError('name', !goodName); ok &= goodName;
+
+  const goodExp = validExp(vals.exp||'');
+  showError('exp', !goodExp); ok &= goodExp;
+
+  const goodCvc = validCVC(vals.cvc||'');
+  showError('cvc', !goodCvc); ok &= goodCvc;
+
+  // Agreement
+  const goodAgree = !!vals.agree;
+  showError('agree', !goodAgree); ok &= goodAgree;
+
+  return !!ok;
+}
+
+/* ==========================
+   Wire Up
+   ========================== */
+renderLines();
+totals();
+
+$('#apply').addEventListener('click', applyCode);
+$('#code').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); applyCode(); }});
+
+$$('#ship-methods input[type="radio"]').forEach(r=>{
+  r.addEventListener('change', ()=>{
+    shippingMode = r.value;
+    totals();
+  });
+});
+
+['email','fname','lname','addr1','city','state','zip','country','card','name','exp','cvc'].forEach(id=>{
+  const el = $('#'+id);
+  el?.addEventListener('input', ()=> showError(id, false));
+});
+
+$('#ck-form').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  if(!validate()){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+  // Mock "place order"
+  const btn = $('#place');
+  btn.disabled = true;
+  btn.textContent = 'Processing…';
+  setTimeout(()=>{
+    // Clear cart for demo; show confirmation
+    sessionStorage.setItem('aureline_cart','[]');
+    alert('Thank you! Your order has been placed. (Mock)');
+    window.location.href = '#'; // stay on page in mock
+    btn.disabled = false;
+    btn.textContent = 'Place Order';
+  }, 1200);
+});
+
+/* Input niceties */
+$('#exp').addEventListener('input', (e)=>{
+  let v = e.target.value.replace(/[^\d]/g, '');
+  if(v.length>4) v=v.slice(0,4);
+  if(v.length>=3) v = v.slice(0,2) + '/' + v.slice(2);
+  e.target.value = v;
+});
+$('#card').addEventListener('input', (e)=>{
+  let v = e.target.value.replace(/\D/g,'').slice(0,19);
+  v = v.replace(/(.{4})/g,'$1 ').trim();
+  e.target.value = v;
+});
+$('#cvc').addEventListener('input', (e)=>{ e.target.value = e.target.value.replace(/\D/g,'').slice(0,4); });
+
+/* Free shipping note visibility */
+(function initFreeShip(){
+  const sub = cartSubtotal();
+  if(sub < FREE_SHIP_THRESHOLD){
+    const left = FREE_SHIP_THRESHOLD - sub;
+    $('#free-note').innerHTML = `You're <b>$${left.toFixed(2)}</b> away from free Standard shipping.`;
+  } else {
+    $('#free-note').textContent = `Standard shipping is free over $${FREE_SHIP_THRESHOLD}.`;
+  }
+  $('#free-note').style.display = 'inline';
+})();
+</script>
+</body>
+</html>
