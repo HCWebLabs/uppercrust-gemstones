@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Aureline — Moonstone Halo Pendant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Aureline Moonstone Halo Pendant — ethically sourced, small-batch handcrafted fine jewelry in an amethyst-forward palette." />
+  <meta name="color-scheme" content="light" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================
+       AURELINE PDP — AMETHYST
+       ========================== */
+    #aureline, #aureline * { box-sizing: border-box; }
+    #aureline{
+      --ivory:#FAF9F7; --marble:#F4F2EE; --linen:#EAE4DA;
+      --gem:#6F3BA2; --gem-ink:#5A2D85; --gem-soft:#BDA3D6; --gem-pale:#E9E0F3;
+      --slate:#4B4A47; --ink:#2f2e2b; --muted:#7e7b75; --rose:#E6D7EC;
+      --ring:0 0 0 2px rgba(111,59,162,.12); --shadow:0 6px 18px rgba(0,0,0,.06);
+      --radius:14px; --radius-sm:10px; --gutter:clamp(16px,3vw,32px);
+      --container:min(1180px, 92vw); --speed:260ms; --ease:cubic-bezier(.22,.61,.36,1);
+      color:var(--ink); font-family:"Work Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--ivory); line-height:1.6;
+    }
+    #aureline .container{width:var(--container);margin-inline:auto;}
+    #aureline a{color:inherit;text-decoration:none}
+    #aureline img{max-width:100%;display:block}
+    #aureline .h1,#aureline .h2,#aureline .h3{font-family:"Fraunces",serif;line-height:1.2;letter-spacing:.02em}
+    #aureline .h1{font-size:clamp(28px,4vw,40px);font-weight:600}
+    #aureline .h2{font-size:clamp(22px,3vw,28px);font-weight:600}
+    #aureline .h3{font-size:clamp(18px,2.2vw,22px);font-weight:600}
+
+    /* header (simple) */
+    #aureline header{position:sticky;top:0;z-index:40;background:linear-gradient(#fff,#fff0);
+      border-bottom:1px solid color-mix(in oklab,var(--gem) 16%,transparent); backdrop-filter:saturate(1.1) blur(8px)}
+    @supports not (backdrop-filter: blur(8px)){#aureline header{background:#fff}}
+    #aureline .topbar{display:flex;align-items:center;justify-content:space-between;padding:.9rem var(--gutter)}
+    #aureline .brand{font-family:"Fraunces",serif;font-weight:600;letter-spacing:.06em;display:flex;gap:.6rem;align-items:center}
+    #aureline .brand i{width:18px;height:18px;border-radius:50%;background:radial-gradient(closest-side,var(--gem),var(--gem-ink));
+      box-shadow:0 0 0 2px #fff inset,0 0 0 3px rgba(111,59,162,.25)}
+    #aureline nav ul{list-style:none;display:flex;gap:clamp(.6rem,2.2vw,1.4rem);margin:0;padding:0}
+    #aureline nav a{color:var(--slate);font-weight:500}
+    #aureline nav a:hover{color:var(--ink)}
+    #aureline .crumbs{border-top:1px solid #eae6e0;background:linear-gradient(#fff,var(--marble))}
+    #aureline .crumbs .container{padding:.6rem var(--gutter);font-size:.95rem;color:var(--muted)}
+    #aureline .crumbs a{color:var(--slate)} #aureline .crumbs a:hover{color:var(--ink)}
+
+    /* layout */
+    #aureline .pdp{padding: clamp(22px,5.5vw,54px) 0}
+    #aureline .grid{display:grid;gap:clamp(16px,2.2vw,24px);grid-template-columns:1.1fr .9fr}
+    @media (max-width: 980px){#aureline .grid{grid-template-columns:1fr}}
+
+    /* gallery */
+    #aureline .gallery{display:grid;grid-template-columns:100px 1fr;gap:14px}
+    @media (max-width: 700px){#aureline .gallery{grid-template-columns:1fr}}
+    #aureline .thumbs{display:grid;gap:10px;grid-auto-rows:80px}
+    @media (max-width: 700px){#aureline .thumbs{order:2;grid-auto-flow:column;grid-auto-columns:82px;overflow:auto;padding-bottom:6px}}
+    #aureline .thumb{
+      border:1px solid color-mix(in oklab,var(--gem) 14%,transparent);
+      border-radius:10px; background:#fff; overflow:hidden; cursor:pointer; box-shadow:var(--shadow);
+      transition:box-shadow var(--speed) var(--ease), transform var(--speed) var(--ease);
+    }
+    #aureline .thumb[aria-selected="true"]{outline:2px solid var(--gem); outline-offset:2px}
+    #aureline .thumb:hover{transform:translateY(-1px)}
+    #aureline .heroimg{
+      aspect-ratio: 1/1; border-radius:14px; overflow:hidden; background:#fff; box-shadow:var(--shadow);
+      border:1px solid color-mix(in oklab,var(--gem) 14%,transparent)
+    }
+    #aureline .heroimg img{width:100%;height:100%;object-fit:cover}
+
+    /* product info */
+    #aureline .info{background:linear-gradient(#fff,var(--marble));border:1px solid color-mix(in oklab,var(--gem) 14%,transparent);
+      border-radius:14px; padding: clamp(14px,2.5vw,22px)}
+    #aureline .price{font-size:clamp(20px,2.6vw,24px);font-weight:600;color:var(--ink)}
+    #aureline .muted{color:var(--muted)}
+    #aureline .stars{color:#b88ce0}
+    #aureline .opts{display:grid;gap:14px;margin-top:10px}
+    #aureline .opt label{display:block;font-weight:600;margin-bottom:6px}
+    #aureline .pills{display:flex;flex-wrap:wrap;gap:8px}
+    #aureline .pill{padding:.45rem .8rem;border-radius:999px;border:1.6px solid color-mix(in oklab,var(--gem) 40%, #d9d0e6);
+      background:#fff;cursor:pointer}
+    #aureline .pill[aria-pressed="true"]{background:var(--gem-pale);border-color:var(--gem)}
+    #aureline select,#aureline input[type="number"]{
+      width:100%;padding:.8rem 1rem;border-radius:999px;border:1.6px solid #dcd6cb;background:var(--marble);outline:none;
+      transition:border-color var(--speed) var(--ease), background var(--speed) var(--ease)
+    }
+    #aureline select:focus,#aureline input[type="number"]:focus{border-color:var(--gem);background:#fff;box-shadow:var(--ring)}
+    #aureline .cta{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:8px}
+
+    /* buttons */
+    #aureline .btn{--bg:transparent;--fg:var(--ink);--bd:var(--gem);display:inline-flex;align-items:center;gap:.6rem;
+      padding:.9rem 1.2rem;border-radius:999px;border:1.8px solid var(--bd);color:var(--fg);background:var(--bg);
+      box-shadow:var(--ring);transition:transform var(--speed) var(--ease),background var(--speed) var(--ease)}
+    #aureline .btn:hover{transform:translateY(-1px);background:color-mix(in oklab,var(--gem) 7%,white)}
+    #aureline .btn.primary{--bg:var(--gem);--fg:white}
+    #aureline .btn.primary:hover{background:color-mix(in oklab,var(--gem) 88%,white)}
+
+    /* sticky mobile add-to-cart */
+    #aureline .sticky-cta{
+      position:sticky;bottom:0;z-index:35;background:linear-gradient(to top, #fff, #ffffffc0 60%, #ffffff00);
+      border-top:1px solid color-mix(in oklab,var(--gem) 12%, transparent); padding:.7rem var(--gutter)
+    }
+    @media (min-width: 981px){#aureline .sticky-cta{display:none}}
+
+    /* accordions */
+    #aureline .acc{margin-top:16px;border-top:1px solid #e8e3dc}
+    #aureline .acc details{border-bottom:1px solid #e8e3dc;background:#fff}
+    #aureline .acc summary{
+      list-style:none;cursor:pointer;padding:14px 6px;display:flex;justify-content:space-between;align-items:center;font-weight:600
+    }
+    #aureline .acc summary::-webkit-details-marker{display:none}
+    #aureline .acc .panel{padding:0 6px 14px;color:var(--slate)}
+    #aureline .badge{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .8rem;border-radius:999px;
+      border:1px solid color-mix(in oklab,var(--gem) 18%, transparent); background:#fff; box-shadow:var(--ring); font-size:.95rem}
+
+    /* suggestions rail */
+    #aureline .rail{display:grid;grid-auto-flow:column;grid-auto-columns: clamp(220px,24vw,280px);gap:14px;overflow:auto;padding:6px}
+    #aureline .card{background:#fff;border:1px solid color-mix(in oklab,var(--gem) 14%, transparent);border-radius:10px;box-shadow:var(--shadow);overflow:hidden}
+    #aureline .card .img{aspect-ratio:1/1}
+    #aureline .card .info{padding:10px 12px}
+    #aureline .card .name{font-family:"Fraunces",serif}
+
+    /* utils */
+    #aureline .sr{position:absolute!important;clip:rect(1px,1px,1px,1px);clip-path:inset(50%);height:1px;width:1px;overflow:hidden;white-space:nowrap;border:0;padding:0;margin:-1px}
+  </style>
+</head>
+<body>
+<main id="aureline" aria-label="Aureline Product Page">
+
+  <!-- Header -->
+  <header>
+    <div class="topbar container">
+      <div class="brand"><i aria-hidden="true"></i><a href="#">Aureline</a></div>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Stones</a></li>
+          <li><a href="#">Our Craft</a></li>
+          <li><a href="#">Journal</a></li>
+        </ul>
+      </nav>
+      <a href="#" aria-label="View cart">👜 Cart</a>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <div class="crumbs" aria-label="Breadcrumb">
+    <div class="container">
+      <a href="#">Home</a> › <a href="#">Necklaces</a> › Moonstone Halo Pendant
+    </div>
+  </div>
+
+  <!-- PDP -->
+  <section class="pdp">
+    <div class="container grid">
+      <!-- Gallery -->
+      <div class="gallery" aria-label="Product gallery">
+        <div class="thumbs" role="tablist" aria-label="Thumbnail list">
+          <button class="thumb" role="tab" aria-selected="true" aria-controls="shot-1" data-src="https://images.unsplash.com/photo-1516632664305-eda5d6a5bb3b?q=80&w=1600&auto=format&fit=crop">
+            <img src="https://images.unsplash.com/photo-1516632664305-eda5d6a5bb3b?q=80&w=300&auto=format&fit=crop" alt="Pendant front on marble" />
+          </button>
+          <button class="thumb" role="tab" aria-selected="false" aria-controls="shot-1" data-src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1600&auto=format&fit=crop">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=300&auto=format&fit=crop" alt="Pendant angled on linen" />
+          </button>
+          <button class="thumb" role="tab" aria-selected="false" aria-controls="shot-1" data-src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1600&auto=format&fit=crop">
+            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=300&auto=format&fit=crop" alt="Artisan setting detail" />
+          </button>
+          <button class="thumb" role="tab" aria-selected="false" aria-controls="shot-1" data-src="https://images.unsplash.com/photo-1516637090014-cb1ab0d08fc7?q=80&w=1600&auto=format&fit=crop">
+            <img src="https://images.unsplash.com/photo-1516637090014-cb1ab0d08fc7?q=80&w=300&auto=format&fit=crop" alt="Clasp and chain close-up" />
+          </button>
+        </div>
+
+        <figure class="heroimg" id="shot-1">
+          <img id="hero" src="https://images.unsplash.com/photo-1516632664305-eda5d6a5bb3b?q=80&w=1600&auto=format&fit=crop" alt="Moonstone Halo Pendant on marble surface" />
+        </figure>
+      </div>
+
+      <!-- Info -->
+      <aside class="info">
+        <h1 class="h1">Moonstone Halo Pendant</h1>
+        <p class="muted">Hand-set cabochon in a softly rounded halo setting. Ethically sourced, small-batch craftsmanship.</p>
+        <div class="price" aria-label="Price">$320</div>
+        <div class="muted" aria-label="Reviews"><span class="stars">★★★★★</span> (42)</div>
+
+        <div class="opts" id="product-options">
+          <!-- Metal -->
+          <div class="opt" role="group" aria-labelledby="opt-metal-lab">
+            <label id="opt-metal-lab">Metal</label>
+            <div class="pills" data-opt="metal">
+              <button class="pill" aria-pressed="true" data-value="14k Gold">14k Gold</button>
+              <button class="pill" aria-pressed="false" data-value="Gold-Fill">Gold-Fill</button>
+              <button class="pill" aria-pressed="false" data-value="Sterling Silver">Sterling Silver</button>
+            </div>
+          </div>
+
+          <!-- Stone -->
+          <div class="opt">
+            <label for="stone">Stone</label>
+            <select id="stone" name="stone">
+              <option>Moonstone</option>
+              <option>Sapphire</option>
+              <option>Labradorite</option>
+              <option>Aquamarine</option>
+              <option>Rose Quartz</option>
+              <option>Amethyst</option>
+            </select>
+          </div>
+
+          <!-- Chain length -->
+          <div class="opt">
+            <label for="length">Chain Length</label>
+            <select id="length" name="length">
+              <option>16"</option>
+              <option selected>18"</option>
+              <option>20"</option>
+            </select>
+          </div>
+
+          <!-- Qty -->
+          <div class="opt">
+            <label for="qty">Quantity</label>
+            <input id="qty" name="qty" type="number" min="1" value="1" inputmode="numeric" />
+          </div>
+
+          <!-- CTA -->
+          <div class="cta">
+            <button class="btn primary" id="add">Add to Cart — $320</button>
+            <button class="btn" id="wish">♡ Save</button>
+          </div>
+
+          <!-- Trust badges -->
+          <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:6px">
+            <span class="badge">✓ Free 30-day returns</span>
+            <span class="badge">✓ Secure checkout</span>
+            <span class="badge">✓ Ethically sourced</span>
+          </div>
+        </div>
+
+        <!-- Accordions -->
+        <div class="acc" aria-label="Details">
+          <details>
+            <summary>Materials & Dimensions <span aria-hidden="true">+</span></summary>
+            <div class="panel">
+              <ul>
+                <li>Stone: natural moonstone cabochon (8mm)</li>
+                <li>Setting: rounded halo with closed back</li>
+                <li>Metal: 14k gold (recycled) or sterling options</li>
+                <li>Chain: 16–20" fine cable</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary>Provenance & Ethics <span aria-hidden="true">+</span></summary>
+            <div class="panel">
+              We partner with vetted suppliers for conflict-free stones and recycled metals. Each piece is made in small batches and hand-finished in our studio.
+            </div>
+          </details>
+          <details>
+            <summary>Care & Repair <span aria-hidden="true">+</span></summary>
+            <div class="panel">
+              Clean gently with mild soap and water; avoid harsh chemicals and ultrasonic cleaners for soft stones. Complimentary first-year polishing and prong check.
+            </div>
+          </details>
+          <details>
+            <summary>Shipping & Returns <span aria-hidden="true">+</span></summary>
+            <div class="panel">
+              Orders ship within 3–5 business days. Free 30-day returns on unworn items. Gift packaging available at checkout.
+            </div>
+          </details>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Suggestions -->
+  <section class="container" aria-label="You may also like" style="padding-bottom:clamp(28px,7vw,64px)">
+    <div class="h2" style="margin-bottom:.4rem">You may also like</div>
+    <div class="rail" role="list">
+      <article class="card" role="listitem">
+        <div class="img"><img loading="lazy" src="https://images.unsplash.com/photo-1609167830220-7164b4d1b271?q=80&w=1200&auto=format&fit=crop" alt="Sapphire Solitaire Ring"/></div>
+        <div class="info"><div class="name">Sapphire Solitaire Ring</div><div>$780</div></div>
+      </article>
+      <article class="card" role="listitem">
+        <div class="img"><img loading="lazy" src="https://images.unsplash.com/photo-1599643475993-9f0c3c4970f9?q=80&w=1200&auto=format&fit=crop" alt="Rose Quartz Drop Earrings"/></div>
+        <div class="info"><div class="name">Rose Quartz Drop Earrings</div><div>$210</div></div>
+      </article>
+      <article class="card" role="listitem">
+        <div class="img"><img loading="lazy" src="https://images.unsplash.com/photo-1523475496153-3d6cc0f0bf87?q=80&w=1200&auto=format&fit=crop" alt="Aquamarine Bezel Necklace"/></div>
+        <div class="info"><div class="name">Aquamarine Bezel Necklace</div><div>$265</div></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Sticky CTA (mobile) -->
+  <div class="sticky-cta">
+    <div class="container" style="display:flex;gap:.6rem">
+      <button class="btn primary" style="flex:1" id="add-mobile">Add to Cart — $320</button>
+      <button class="btn" id="wish-mobile">♡</button>
+    </div>
+  </div>
+
+  <!-- Footer (tight) -->
+  <footer style="border-top:1px solid #e8e4dc;background:linear-gradient(#fff,var(--marble));padding:18px 0;color:var(--slate)">
+    <div class="container" style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <div class="brand"><i aria-hidden="true"></i><span>Aureline</span></div>
+      <small>© <span id="year"></span> Aureline · <a href="#">Privacy</a> · <a href="#">Terms</a></small>
+    </div>
+  </footer>
+</main>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Gallery thumbs
+  (function(){
+    const hero = document.getElementById('hero');
+    const thumbs = document.querySelectorAll('#aureline .thumb');
+    thumbs.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        thumbs.forEach(b=>b.setAttribute('aria-selected','false'));
+        btn.setAttribute('aria-selected','true');
+        hero.src = btn.dataset.src;
+      });
+    });
+  })();
+
+  // Pills (toggle pressed state, single-select per group)
+  (function(){
+    document.querySelectorAll('#aureline .pills').forEach(group=>{
+      group.addEventListener('click', (e)=>{
+        const b = e.target.closest('.pill'); if(!b) return;
+        group.querySelectorAll('.pill').forEach(x=>x.setAttribute('aria-pressed','false'));
+        b.setAttribute('aria-pressed','true');
+      });
+    });
+  })();
+
+  // Add to cart demo
+  function chosen(groupSel){ const p = document.querySelector(groupSel+' .pill[aria-pressed="true"]'); return p ? p.dataset.value : ''; }
+  function toast(msg){
+    const el = document.createElement('div');
+    el.textContent = msg;
+    el.style.cssText = 'position:fixed;inset:auto 0 20px 0;margin:auto;background:#fff;border:1px solid rgba(111,59,162,.25);padding:.8rem 1rem;border-radius:999px;box-shadow:0 8px 28px rgba(0,0,0,.12);width:max-content;max-width:90vw';
+    document.body.appendChild(el);
+    setTimeout(()=>{ el.remove(); }, 2100);
+  }
+  function collectLineItem(){
+    return {
+      product: 'Moonstone Halo Pendant',
+      price: 320,
+      qty: Number(document.getElementById('qty').value || 1),
+      metal: chosen('[data-opt="metal"]') || '14k Gold',
+      stone: document.getElementById('stone').value,
+      length: document.getElementById('length').value
+    };
+  }
+  function handleAdd(){
+    const item = collectLineItem();
+    // In a real build, push to cart state/storage here
+    toast(`Added: ${item.product} — ${item.metal}, ${item.stone}, ${item.length} ×${item.qty}`);
+  }
+  document.getElementById('add').addEventListener('click', handleAdd);
+  document.getElementById('add-mobile').addEventListener('click', handleAdd);
+  document.getElementById('wish').addEventListener('click', ()=>toast('Saved to wishlist'));
+  document.getElementById('wish-mobile').addEventListener('click', ()=>toast('Saved to wishlist'));
+</script>
+
+<!-- JSON-LD Product (mock) -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Product",
+  "name":"Moonstone Halo Pendant",
+  "brand":{"@type":"Brand","name":"Aureline"},
+  "description":"Hand-set moonstone cabochon halo pendant in recycled 14k gold or sterling silver. Ethically sourced, small-batch craftsmanship.",
+  "image":[
+    "https://images.unsplash.com/photo-1516632664305-eda5d6a5bb3b?q=80&w=1600&auto=format&fit=crop"
+  ],
+  "offers":{
+    "@type":"Offer",
+    "priceCurrency":"USD",
+    "price":"320.00",
+    "availability":"https://schema.org/InStock"
+  }
+}
+</script>
+</body>
+</html>
