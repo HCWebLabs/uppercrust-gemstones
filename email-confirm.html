@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="utf-8">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if mso]>
+  <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+  <![endif]-->
+  <title>Aureline — Order {{order_number}}</title>
+  <style>
+    /* Client-safe resets */
+    html, body { margin:0 !important; padding:0 !important; height:100% !important; width:100% !important; }
+    * { -ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; }
+    table, td { mso-table-lspace:0pt !important; mso-table-rspace:0pt !important; }
+    img { -ms-interpolation-mode:bicubic; border:0; outline:none; text-decoration:none; }
+    a { text-decoration:none; }
+
+    /* Brand palette (Aureline, amethyst-forward, light) */
+    :root {
+      --amethyst: #6F3BA2;
+      --amethyst-ink:#5A2D85;
+      --amethyst-soft:#BDA3D6;
+      --amethyst-pale:#E9E0F3;
+      --ivory:#FAF9F7;
+      --marble:#F4F2EE;
+      --linen:#EAE4DA;
+      --ink:#2F2E2B;
+      --slate:#4B4A47;
+      --muted:#7E7B75;
+      --border:#E6E0D6;
+    }
+
+    /* Container + typography */
+    .email-body { width:100%; background: var(--ivory); }
+    .wrap { width:100%; max-width:600px; margin:0 auto; }
+    .spacer-16 { height:16px; line-height:16px; }
+    .spacer-24 { height:24px; line-height:24px; }
+    .spacer-32 { height:32px; line-height:32px; }
+    .spacer-8 { height:8px; line-height:8px; }
+
+    .card { background:#FFFFFF; border:1px solid var(--border); }
+    .soft { background: linear-gradient(#FFFFFF, var(--marble)); }
+    .pill { border:1px solid rgba(111,59,162,.25); border-radius:999px; padding:8px 12px; color:#000; }
+
+    body, table, td { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Work Sans", sans-serif; color: var(--ink); }
+    h1, h2, h3 { margin:0; font-weight:600; font-family: Georgia, "Times New Roman", Times, serif; letter-spacing:.3px; }
+    h1 { font-size:24px; line-height:1.25; }
+    h2 { font-size:18px; line-height:1.3; }
+    h3 { font-size:16px; line-height:1.35; }
+    p { margin:0; line-height:1.6; font-size:14px; color: var(--slate); }
+    small { color: var(--muted); }
+
+    /* Buttons (bulletproof) */
+    .btn { display:inline-block; padding:12px 18px; background: var(--amethyst); color:#FFFFFF !important; border-radius:999px; font-weight:600; }
+    .btn--outline { background:#FFFFFF; color: var(--amethyst) !important; border:1px solid var(--amethyst); }
+
+    /* Tables */
+    .summary th, .summary td { font-size:14px; padding:10px 0; border-bottom:1px solid var(--border); vertical-align:top; }
+    .summary th { text-align:left; color: var(--muted); font-weight:600; }
+    .summary .right { text-align:right; }
+    .totals td { padding:8px 0; }
+    .totals .line { border-top:1px solid var(--border); }
+    .totals .grand { font-weight:700; font-size:16px; color: var(--ink); }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .px { padding-left:16px !important; padding-right:16px !important; }
+      .stack { display:block !important; width:100% !important; }
+      .hide-m { display:none !important; }
+      h1 { font-size:22px !important; }
+    }
+  </style>
+</head>
+<body class="email-body" style="margin:0; padding:0; background:#FAF9F7;">
+  <!-- Preheader (hidden preview text) -->
+  <div style="display:none; max-height:0; overflow:hidden; opacity:0; font-size:1px; line-height:1px;">
+    Thanks for your order {{customer_first}} — here’s your receipt for order {{order_number}}.
+  </div>
+
+  <!-- Header -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#FFFFFF; border-bottom:1px solid #E6E0D6;">
+    <tr>
+      <td align="center">
+        <table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600">
+          <tr><td class="spacer-16"></td></tr>
+          <tr>
+            <td align="left" class="px" style="padding:0 24px;">
+              <table role="presentation" width="100%">
+                <tr>
+                  <td style="font-family:Georgia, 'Times New Roman', Times, serif; font-size:22px; font-weight:700; letter-spacing:.06em; color:#2F2E2B;">
+                    <span style="display:inline-block; width:16px; height:16px; border-radius:50%; background: radial-gradient(circle at 40% 40%, #6F3BA2, #5A2D85); box-shadow:0 0 0 2px #fff inset, 0 0 0 3px rgba(111,59,162,.25); vertical-align:middle; margin-right:8px;"></span>
+                    Aureline
+                  </td>
+                  <td align="right">
+                    <span class="pill" style="font-size:12px;">Order {{order_number}}</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td class="spacer-16"></td></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Hero / Intro -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:linear-gradient(#FFFFFF, #F4F2EE);">
+    <tr>
+      <td align="center">
+        <table role="presentation" class="wrap card soft" cellpadding="0" cellspacing="0" border="0" width="600" style="border:1px solid #E6E0D6;">
+          <tr><td class="spacer-24"></td></tr>
+          <tr>
+            <td class="px" style="padding:0 24px;">
+              <h1>Thank you, {{customer_first}}.</h1>
+              <div class="spacer-8"></div>
+              <p>Your order was received on <strong>{{order_date}}</strong>. We’ll send a shipping update as soon as it’s on the way.</p>
+            </td>
+          </tr>
+          <tr><td class="spacer-24"></td></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Items -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+      <td align="center">
+        <table role="presentation" class="wrap card" cellpadding="0" cellspacing="0" border="0" width="600" style="border-top:none;">
+          <tr><td class="spacer-24"></td></tr>
+          <tr>
+            <td class="px" style="padding:0 24px;">
+              <h2>Items</h2>
+              <div class="spacer-8"></div>
+
+              <!-- Item Row (repeat for each line) -->
+              <!-- START: {{#each line_items}} -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="summary">
+                <tr>
+                  <td width="64" style="padding-right:12px; border-bottom:1px solid #E6E0D6;">
+                    <img src="{{image_url}}" width="64" height="64" alt="" style="border-radius:8px; border:1px solid #eee; display:block;">
+                  </td>
+                  <td style="border-bottom:1px solid #E6E0D6;">
+                    <div style="font-weight:600; color:#2F2E2B;">{{title}}</div>
+                    <div style="color:#7E7B75; font-size:13px;">{{variant}}</div>
+                    <small style="color:#7E7B75;">Qty {{quantity}}</small>
+                  </td>
+                  <td class="right" style="border-bottom:1px solid #E6E0D6; white-space:nowrap;">
+                    {{line_total_formatted}}
+                  </td>
+                </tr>
+              </table>
+              <!-- END: {{/each}} -->
+
+              <div class="spacer-16"></div>
+
+              <!-- Totals -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="totals">
+                <tr class="line">
+                  <td align="left" style="color:#7E7B75;">Subtotal</td>
+                  <td align="right">{{subtotal_formatted}}</td>
+                </tr>
+                {{#if discount_applied}}
+                <tr>
+                  <td align="left" style="color:#7E7B75;">Discount ({{discount_code}})</td>
+                  <td align="right" style="color:#5A2D85;">−{{discount_formatted}}</td>
+                </tr>
+                {{/if}}
+                <tr>
+                  <td align="left" style="color:#7E7B75;">Shipping</td>
+                  <td align="right">{{shipping_formatted}}</td>
+                </tr>
+                <tr>
+                  <td align="left" style="color:#7E7B75;">Tax</td>
+                  <td align="right">{{tax_formatted}}</td>
+                </tr>
+                <tr>
+                  <td align="left" class="grand">Total</td>
+                  <td align="right" class="grand">{{total_formatted}}</td>
+                </tr>
+              </table>
+
+              <div class="spacer-24"></div>
+
+              <!-- CTA -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="left">
+                <tr>
+                  <td align="center" bgcolor="#6F3BA2" style="border-radius:999px;">
+                    <a class="btn" href="{{order_status_url}}" target="_blank">View Order Status</a>
+                  </td>
+                  <td width="12"></td>
+                  <td align="center" style="border-radius:999px;">
+                    <a class="btn btn--outline" href="{{shop_url}}" target="_blank">Continue Shopping</a>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+          <tr><td class="spacer-24"></td></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Addresses & Payment -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+      <td align="center">
+        <table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600">
+          <tr><td class="spacer-24"></td></tr>
+          <tr>
+            <td class="px" style="padding:0 24px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="card stack" width="50%" style="padding:16px; border:1px solid #E6E0D6;">
+                    <h3>Shipping to</h3>
+                    <div class="spacer-8"></div>
+                    <p>{{ship_name}}<br>{{ship_address1}}<br>{{ship_address2}}{{#if ship_address2}}<br>{{/if}}{{ship_city}}, {{ship_state}} {{ship_zip}}<br>{{ship_country}}</p>
+                  </td>
+                  <td width="16" class="hide-m"></td>
+                  <td class="card stack" width="50%" style="padding:16px; border:1px solid #E6E0D6;">
+                    <h3>Billing</h3>
+                    <div class="spacer-8"></div>
+                    <p>{{bill_name}}<br>{{bill_address1}}<br>{{bill_address2}}{{#if bill_address2}}<br>{{/if}}{{bill_city}}, {{bill_state}} {{bill_zip}}<br>{{bill_country}}</p>
+                    <div class="spacer-8"></div>
+                    <p><strong>Paid with:</strong> {{card_brand}} •••• {{card_last4}} ({{card_exp}})</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td class="spacer-24"></td></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Care & Trust strip -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:linear-gradient(#FFFFFF, #F4F2EE); border-top:1px solid #E6E0D6; border-bottom:1px solid #E6E0D6;">
+    <tr>
+      <td align="center">
+        <table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600">
+          <tr><td class="spacer-24"></td></tr>
+          <tr>
+            <td class="px" style="padding:0 24px;">
+              <h3 style="margin:0 0 6px 0;">Care tips for your piece</h3>
+              <p>Clean gently with mild soap and water; avoid harsh chemicals and ultrasonic cleaners for soft stones (moonstone, opal, etc.). Store separately to prevent scratches.</p>
+              <div class="spacer-16"></div>
+              <table role="presentation" width="100%">
+                <tr>
+                  <td class="pill" style="text-align:center;">✓ 30-day free returns</td>
+                  <td width="8"></td>
+                  <td class="pill" style="text-align:center;">🔒 Secure checkout</td>
+                  <td width="8"></td>
+                  <td class="pill" style="text-align:center;">🌿 Ethically sourced</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr><td class="spacer-24"></td></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+      <td align="center">
+        <table role="presentation" class="wrap" cellpadding="0" cellspacing="0" border="0" width="600">
+          <tr><td class="spacer-24"></td></tr>
+          <tr>
+            <td class="px" style="padding:0 24px;">
+              <p style="font-size:12px; color:#7E7B75;">
+                Questions? Reply to this email or contact us at <a href="mailto:support@aureline.example" style="color:#6F3BA2;">support@aureline.example</a>.<br>
+                Aureline · 123 Atelier Way, Suite 5 · Portland, OR 97205
+              </p>
+              <div class="spacer-16"></div>
+              <p style="font-size:12px; color:#7E7B75;">You received this email because you made a purchase at Aureline. <a href="{{email_prefs_url}}" style="color:#6F3BA2;">Email preferences</a></p>
+            </td>
+          </tr>
+          <tr><td class="spacer-32"></td></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
